@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}">Java App</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div class="container">
+    <h1 th:text="${title}"></h1>
+    <p th:text="${message}"></p>
+    <button onclick="alert('Built with Java, Docker, and Jenkins!')">Click Me</button>
+  </div>
+</body>
+</html>
+
