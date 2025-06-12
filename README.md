@@ -1,8 +1,6 @@
-Perfect, Bubu! Here's a professional and complete `README.md` for your **`java-docker-jenkins`** project. It explains every step clearly for students or DevOps learners:
 
----
 
-```markdown
+
 # 🚀 Java + Docker + Jenkins CI/CD Project
 
 This project demonstrates how to build and deploy a simple **Spring Boot Java web app** using **Maven**, **Docker**, and **Jenkins**. The application displays a stylish landing page and is perfect for showcasing DevOps integration.
