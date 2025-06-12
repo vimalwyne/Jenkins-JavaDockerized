@@ -54,7 +54,9 @@ Jenkins-JavaDockerized/
 
 ## 🔨 How to Run the Project
 
-### 1. 📦 Clone the Repository to run and test locally
+To run locally and test the app
+
+### . 📦 Clone the Repository to run and test locally
 
 ```
 git clone https://github.com/bhuvan-raj/Jenkins-JavaDockerized.git
@@ -63,7 +65,7 @@ cd java-docker-jenkins
 
 ---
 
-### 2. 🧪 Run Locally (Optional)
+### . 🧪 Run Locally 
 
 To test the app without Docker/Jenkins:
 
@@ -74,8 +76,13 @@ mvn spring-boot:run
 Then open: [http://localhost:8080](http://localhost:8080)
 
 ---
+## To Setup the Jenkins Pipeline
 
-### 3. 🔧 Jenkins Setup
+```
+fork the repository
+```
+
+### 1. 🔧 Jenkins Setup
 
 #### a. Create Jenkins Credentials
 
@@ -90,10 +97,10 @@ Then open: [http://localhost:8080](http://localhost:8080)
 * SCM: Git
 * Repository URL: `https://github.com/bhuvan-raj/java-docker-jenkins.git`
 * Script Path: `Jenkinsfile`
-
+* Save and Build
 ---
 
-### 4. 🚀 Jenkinsfile Breakdown
+### 2. 🚀 Jenkinsfile Breakdown
 
 The pipeline performs:
 
@@ -106,15 +113,15 @@ The pipeline performs:
 
 ---
 
-### 5. 🌐 Access the App
+### 3. 🌐 Access the App
 
 After pipeline runs, open:
 
 ```bash
-http://<your-jenkins-host-ip>:8080
+http://<your-jenkins-host-ip>:7500
 ```
 
-You'll see a beautifully styled welcome page.
+You'll see a  welcome page.
 
 ---
 
