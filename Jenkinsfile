@@ -22,7 +22,7 @@ pipeline {
 FROM eclipse-temurin:17-jdk-alpine
 ARG JAR_FILE=target/*.jar
 COPY \${JAR_FILE} app.jar
-EXPOSE 8080
+EXPOSE 7500
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 """
         }
@@ -49,7 +49,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
     stage('Run Container') {
       steps {
         sh 'docker rm -f javaapp || true'
-        sh 'docker run -d -p 8080:8080 --name javaapp $IMAGE:latest'
+        sh 'docker run -d -p 7500:8080 --name javaapp $IMAGE:latest'
       }
     }
   }
