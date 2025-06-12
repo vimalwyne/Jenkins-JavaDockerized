@@ -8,10 +8,10 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps {
-        git 'https://github.com/bhuvan-raj/Jenkins-JavaDockerized.git' // update if hosted
-      }
-    }
+  steps {
+    git branch: 'main', url: 'https://github.com/bhuvan-raj/Jenkins-JavaDockerized.git'
+  }
+}
 
     stage('Build JAR') {
       steps {
