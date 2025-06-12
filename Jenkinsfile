@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     IMAGE = 'bhuvanraj123/containerized-java'
-    DOCKER_CREDS = credentials('docker-id') // Add DockerHub credentials in Jenkins
+    DOCKER_CREDS = credentials('bhuvanraj123:dckr_pat_dB9sX2Xla_3GxMPDPxPDKCbzFmE') // Add DockerHub credentials in Jenkins
   }
 
   stages {
