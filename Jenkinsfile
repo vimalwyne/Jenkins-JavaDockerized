@@ -2,14 +2,14 @@ pipeline {
   agent any
 
   environment {
-    IMAGE = 'yourdockerhub/java-docker-jenkins'
-    DOCKER_CREDS = credentials('dockerhub') // Add DockerHub credentials in Jenkins
+    IMAGE = 'bhuvanraj123/containerized-java'
+    DOCKER_CREDS = credentials('docker-id') // Add DockerHub credentials in Jenkins
   }
 
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/yourusername/java-docker-jenkins.git' // update if hosted
+        git 'https://github.com/bhuvan-raj/Jenkins-JavaDockerized.git' // update if hosted
       }
     }
 
