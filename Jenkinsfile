@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/bhuvan-raj/Jenkins-JavaDockerized.git'
+        git branch: 'main', url: 'https://github.com/vimalwyne/Jenkins-JavaDockerized.git'
       }
     }
     stage('Build JAR') {
