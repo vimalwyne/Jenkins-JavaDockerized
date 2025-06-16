@@ -1,19 +1,23 @@
 pipeline {
   agent any
+
   environment {
     IMAGE = 'vimal1234jude/containerized-java'
   }
+
   stages {
     stage('Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/vimalwyne/Jenkins-JavaDockerized.git'
       }
     }
+
     stage('Build JAR') {
       steps {
         bat 'mvn clean package -DskipTests'
       }
     }
+
     stage('Generate Dockerfile') {
       steps {
         script {
@@ -27,30 +31,38 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
         }
       }
     }
+
+    stage('Verify Docker') {
+      steps {
+        bat 'docker info >nul 2>&1 || (echo Docker is not running. && exit 1)'
+      }
+    }
+
     stage('Build Docker Image') {
       steps {
-        script {
-          bat "docker build -t ${IMAGE}:latest ."
-        }
+        bat 'docker build -t %IMAGE%:latest .'
       }
     }
+
     stage('Push to DockerHub') {
       steps {
-        script {
-          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-            bat 'echo $DOCKER_PASSWORD$ | docker login -u $DOCKER_USERNAME$ --password-stdin'
-            bat "docker push ${IMAGE}:latest"
-          }
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+          bat """
+          echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
+          docker push %IMAGE%:latest
+          """
         }
       }
     }
+
     stage('Run Container') {
       steps {
         bat 'docker rm -f javaapp || exit 0'
-        bat "docker run -d -p 7500:7500 --name javaapp ${IMAGE}:latest"
+        bat 'docker run -d -p 7500:7500 --name javaapp %IMAGE%:latest'
       }
     }
   }
+
   post {
     always {
       bat 'docker logout'
