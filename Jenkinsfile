@@ -2,7 +2,6 @@ pipeline {
   agent any
   environment {
     IMAGE = 'vimal1234jude/containerized-java'
-    DOCKER_CREDS = credentials('dockerhub') // Make sure this ID exists in Jenkins
   }
   stages {
     stage('Checkout') {
@@ -12,7 +11,7 @@ pipeline {
     }
     stage('Build JAR') {
       steps {
-        sh 'mvn clean package -DskipTests'
+        bat 'mvn clean package -DskipTests'
       }
     }
     stage('Generate Dockerfile') {
@@ -31,31 +30,30 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
     stage('Build Docker Image') {
       steps {
         script {
-          docker.build(IMAGE)
+          bat "docker build -t ${IMAGE}:latest ."
         }
       }
     }
     stage('Push to DockerHub') {
       steps {
         script {
-          withCredentials([usernamePassword(credentialsId: 'docker-id', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-            sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-            sh 'docker push $IMAGE:latest'
-            sh 'docker tag $IMAGE:latest $IMAGE:latest'
+          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+            bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
+            bat "docker push ${IMAGE}:latest"
           }
         }
       }
     }
     stage('Run Container') {
       steps {
-        sh 'docker rm -f javaapp || true'
-        sh 'docker run -d -p 7500:8080 --name javaapp $IMAGE:latest'
+        bat 'docker rm -f javaapp || exit 0'
+        bat "docker run -d -p 7500:7500 --name javaapp ${IMAGE}:latest"
       }
     }
   }
   post {
     always {
-      sh 'docker logout'
+      bat 'docker logout'
     }
   }
 }
